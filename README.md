@@ -1,4 +1,4 @@
-ssh2http [![Build Status](https://travis-ci.org/mdlayher/ssh2http.svg?branch=master)](https://travis-ci.org/mdlayher/ssh2http) [![GoDoc](http://godoc.org/github.com/mdlayher/ssh2http?status.svg)](http://godoc.org/github.com/mdlayher/ssh2http)
+ssh2http
 ======
 
 Package `ssh2http` provides functionality that enables some functionality of Go's
