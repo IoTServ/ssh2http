@@ -1,4 +1,4 @@
-package sshttp
+package ssh2http
 
 import (
 	"fmt"
@@ -110,9 +110,9 @@ func NewFileSystem(host string, config *ssh.ClientConfig) (*FileSystem, error) {
 
 // Open attempts to access a file under the directory specified in NewFileSystem,
 // and attempts to return a http.File for use with net/http.
-func (fs *FileSystem) Open(name string) (http.File, error) {
+func (fs *FileSystem) Open(fpath string) (http.File, error) {
 	// Check for the requested file in the remote filesystem
-	fpath := filepath.Join(fs.path, name)
+	//fpath := filepath.Join(fs.path, name)
 	f, err := fs.pair.sftpc.Open(fpath)
 	if err != nil {
 		return nil, err

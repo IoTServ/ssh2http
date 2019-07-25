@@ -1,4 +1,4 @@
-package sshttp
+package ssh2http
 
 import (
 	"bytes"

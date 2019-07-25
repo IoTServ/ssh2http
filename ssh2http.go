@@ -1,6 +1,6 @@
 // Package sshttp provides functionality that enables some functionality of Go's
 // net/http package to be used with SSH servers using SFTP.  MIT Licensed.
-package sshttp
+package ssh2http
 
 import (
 	"github.com/pkg/sftp"
