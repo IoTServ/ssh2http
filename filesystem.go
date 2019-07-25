@@ -111,6 +111,7 @@ func NewFileSystem(host string, config *ssh.ClientConfig) (*FileSystem, error) {
 // Open attempts to access a file under the directory specified in NewFileSystem,
 // and attempts to return a http.File for use with net/http.
 func (fs *FileSystem) Open(name string) (http.File, error) {
+	//TODO 文件夹时显示文件列表（带链接）
 	// Check for the requested file in the remote filesystem
 	fpath := filepath.Join(fs.path, name)
 	fpath = filepath.ToSlash(fpath)
