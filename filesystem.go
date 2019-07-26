@@ -1,4 +1,4 @@
-package ssh2http
+package sftp2http
 
 import (
 	"fmt"

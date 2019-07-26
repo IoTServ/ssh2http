@@ -1,18 +1,18 @@
-ssh2http
+sftp2http
 ======
 
-Package `ssh2http` provides functionality that enables some functionality of Go's
+Package `sftp2http` provides functionality that enables some functionality of Go's
 `net/http` package to be used with SSH servers using SFTP.  MIT Licensed.
 
 Examples
 ========
 
-Currently, `ssh2http` provides two types which can be used with `net/http`.
+Currently, `sftp2http` provides two types which can be used with `net/http`.
 
 FileSystem
 ----------
 
-`ssh2http.FileSystem` can be used as a `http.FileSystem` which enables a user to
+`sftp2http.FileSystem` can be used as a `http.FileSystem` which enables a user to
 browse and access files on a remote machine, using a local HTTP server.
 
 ```go
@@ -22,14 +22,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/IoTServ/ssh2http"
+	"github.com/IoTServ/sftp2http"
 	"golang.org/x/crypto/ssh"
 )
 
 func main() {
 	// Set up a http.FileSystem pointed at a user's home directory on
 	// a remote server.
-	fs, err := ssh2http.NewFileSystem("sftp://192.168.1.1:22/home/user", &ssh.ClientConfig{
+	fs, err := sftp2http.NewFileSystem("sftp://192.168.1.1:22/home/user", &ssh.ClientConfig{
 		User: "user",
 		Auth: []ssh.AuthMethod{
 			ssh.Password("password"),
@@ -51,7 +51,7 @@ func main() {
 RoundTripper
 ------------
 
-`ssh2http.RoundTripper` can be used as a `http.RoundTripper` which enables a user
+`sftp2http.RoundTripper` can be used as a `http.RoundTripper` which enables a user
 to use Go's `net/http` library directly over SSH with SFTP.  In the future, this
 method will support adding, updating, and deleting remote files.
 
@@ -64,17 +64,17 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/IoTServ/ssh2http"
+	"github.com/IoTServ/sftp2http"
 	"golang.org/x/crypto/ssh"
 )
 
 func main() {
 	log.SetOutput(os.Stderr)
 
-	// Set up a ssh2http.RoundTripper with a default set of credentials.  These
+	// Set up a sftp2http.RoundTripper with a default set of credentials.  These
 	// credentials will be used whenever a SSH host is dialed, unless another
 	// set is provided directly via the RoundTripper.Dial method.
-	rt := ssh2http.NewRoundTripper(&ssh.ClientConfig{
+	rt := sftp2http.NewRoundTripper(&ssh.ClientConfig{
 		User: "user",
 		Auth: []ssh.AuthMethod{
 			ssh.Password("password"),
@@ -83,7 +83,7 @@ func main() {
 
 	/*
 		// If needed, more hosts can be dialed with different credentials.
-		// The ssh2http.RoundTripper will automatically use these credentials
+		// The sftp2http.RoundTripper will automatically use these credentials
 		// for future interactions with this host.
 		if err := rt.Dial("192.168.1.2:22", &ssh.ClientConfig{
 			User: "user2",
@@ -95,10 +95,10 @@ func main() {
 		}
 	*/
 
-	// Set up a http.Client with ssh2http.RoundTripper registered to handle SFTP
+	// Set up a http.Client with sftp2http.RoundTripper registered to handle SFTP
 	// URLs.
 	t := &http.Transport{}
-	t.RegisterProtocol(ssh2http.Protocol, rt)
+	t.RegisterProtocol(sftp2http.Protocol, rt)
 	c := &http.Client{Transport: t}
 
 	// Perform a HTTP GET request over SFTP, to download a file.
@@ -112,7 +112,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Close all open ssh2http.RoundTripper connections.
+	// Close all open sftp2http.RoundTripper connections.
 	if err := rt.Close(); err != nil {
 		log.Fatal(err)
 	}
